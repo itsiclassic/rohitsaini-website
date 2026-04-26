@@ -12,11 +12,9 @@
 
     :root {
       --blue: #5B73D7;
-      --blue-dim: rgba(91, 115, 215, 0.15);
-      --blue-border: rgba(91, 115, 215, 0.35);
-      --blue-glow: rgba(91, 115, 215, 0.22);
+      --blue-dim: rgba(91,115,215,0.15);
+      --blue-border: rgba(91,115,215,0.35);
       --bg: #080810;
-      --bg2: #0d0d1a;
       --surface: rgba(255,255,255,0.03);
       --border: rgba(255,255,255,0.07);
       --text: #eeeef5;
@@ -33,85 +31,64 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Background layers ── */
-    #canvas {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* Subtle grid */
     .grid-layer {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background-image:
         linear-gradient(rgba(91,115,215,0.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(91,115,215,0.04) 1px, transparent 1px);
       background-size: 56px 56px;
     }
 
-    /* Vignette */
     .vignette {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(8,8,16,0.85) 100%);
+      position: fixed; inset: 0; z-index: 3; pointer-events: none;
+      background: radial-gradient(ellipse 75% 75% at 50% 50%, transparent 25%, rgba(8,8,16,0.94) 100%);
     }
 
-    /* Mouse spotlight */
     #spotlight {
-      position: fixed;
-      width: 700px;
-      height: 700px;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 2;
+      position: fixed; width: 700px; height: 700px; border-radius: 50%;
+      pointer-events: none; z-index: 2;
       transform: translate(-50%, -50%);
       background: radial-gradient(circle, rgba(91,115,215,0.13) 0%, rgba(91,115,215,0.06) 30%, transparent 70%);
       transition: left 0.06s ease, top 0.06s ease;
       left: 50%; top: 50%;
     }
 
-    /* ── Layout ── */
+
+
+    /* Corners & accents */
+    .corner-tl, .corner-br {
+      position: fixed; width: 80px; height: 80px;
+      z-index: 5; pointer-events: none; opacity: 0.25;
+    }
+    .corner-tl { top: 24px; left: 24px; border-top: 0.5px solid var(--blue); border-left: 0.5px solid var(--blue); }
+    .corner-br { bottom: 24px; right: 24px; border-bottom: 0.5px solid var(--blue); border-right: 0.5px solid var(--blue); }
+
+    .bar-accent {
+      position: fixed; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--blue), transparent);
+      z-index: 20; opacity: 0.5;
+    }
+
+    /* Layout */
     main {
-      position: relative;
-      z-index: 10;
+      position: relative; z-index: 10;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       padding: 80px 24px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 640px;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
+    .container { width: 100%; max-width: 640px; }
 
-    /* ── Eyebrow ── */
     .eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display: flex; align-items: center; gap: 10px;
       margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.1s forwards;
+      opacity: 0; animation: fadeUp 0.7s ease 0.1s forwards;
     }
 
     .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--blue);
-      box-shadow: 0 0 8px var(--blue);
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--blue); box-shadow: 0 0 8px var(--blue);
       animation: pulse 2.5s ease-in-out infinite;
     }
 
@@ -121,177 +98,86 @@
     }
 
     .eyebrow-text {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--blue);
+      font-size: 12px; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue);
     }
 
-    /* ── Name ── */
     .name-block {
       margin-bottom: 24px;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.2s forwards;
+      opacity: 0; animation: fadeUp 0.7s ease 0.2s forwards;
     }
 
     h1 {
       font-family: 'Syne', sans-serif;
       font-size: clamp(52px, 10vw, 80px);
-      font-weight: 800;
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-      color: var(--text);
+      font-weight: 800; line-height: 0.95;
+      letter-spacing: -0.03em; color: var(--text);
     }
+    h1 .last { color: var(--blue); display: block; }
 
-    h1 .last {
-      color: var(--blue);
-      display: block;
-    }
-
-    /* ── Divider ── */
     .rule {
-      width: 40px;
-      height: 1px;
-      background: var(--blue-border);
+      width: 40px; height: 1px; background: var(--blue-border);
       margin: 28px 0;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.3s forwards;
+      opacity: 0; animation: fadeUp 0.7s ease 0.3s forwards;
     }
 
-    /* ── Bio ── */
     .bio {
-      font-size: 16px;
-      font-weight: 300;
-      line-height: 1.75;
+      font-size: 16px; font-weight: 300; line-height: 1.75;
       color: rgba(255,255,255,0.55);
-      max-width: 480px;
-      margin-bottom: 48px;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.4s forwards;
+      max-width: 480px; margin-bottom: 48px;
+      opacity: 0; animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+    .bio strong { color: rgba(255,255,255,0.82); font-weight: 400; }
+    .bio .footnote {
+      display: block; margin-top: 16px;
+      font-size: 13px; font-style: italic; color: rgba(255,255,255,0.28);
     }
 
-    .bio strong {
-      color: rgba(255,255,255,0.8);
-      font-weight: 400;
-    }
-
-    /* ── Links ── */
     .links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.55s forwards;
+      display: flex; gap: 12px; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.7s ease 0.55s forwards;
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 22px;
-      border-radius: 6px;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px; border-radius: 6px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
+      font-size: 14px; font-weight: 400;
       text-decoration: none;
-      cursor: pointer;
-      transition: all 0.18s ease;
-      letter-spacing: 0.01em;
+      transition: all 0.18s ease; letter-spacing: 0.01em;
     }
-
     .btn-primary {
-      background: var(--blue-dim);
-      border: 0.5px solid var(--blue-border);
-      color: #a0b0f0;
+      background: var(--blue-dim); border: 0.5px solid var(--blue-border); color: #a0b0f0;
     }
     .btn-primary:hover {
-      background: rgba(91,115,215,0.25);
-      border-color: rgba(91,115,215,0.6);
-      color: #c8d4ff;
-      transform: translateY(-1px);
+      background: rgba(91,115,215,0.25); border-color: rgba(91,115,215,0.6);
+      color: #c8d4ff; transform: translateY(-1px);
     }
-
     .btn-ghost {
-      background: var(--surface);
-      border: 0.5px solid var(--border);
-      color: var(--muted);
+      background: var(--surface); border: 0.5px solid var(--border); color: var(--muted);
     }
     .btn-ghost:hover {
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(255,255,255,0.15);
-      color: rgba(255,255,255,0.75);
-      transform: translateY(-1px);
+      background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.75); transform: translateY(-1px);
     }
-
     .btn svg {
-      width: 15px;
-      height: 15px;
-      flex-shrink: 0;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      width: 15px; height: 15px; flex-shrink: 0;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
     }
 
-    /* ── Footer ── */
-    footer {
-      position: relative;
-      z-index: 10;
-      padding: 24px;
-      text-align: center;
-    }
+    footer { position: relative; z-index: 10; padding: 24px; text-align: center; }
+    .footer-text { font-size: 12px; color: var(--muted2); letter-spacing: 0.06em; }
 
-    .footer-text {
-      font-size: 12px;
-      color: var(--muted2);
-      letter-spacing: 0.06em;
-    }
-
-    /* ── Animations ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── Bottom bar accent ── */
-    .bar-accent {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--blue), transparent);
-      z-index: 20;
-      opacity: 0.5;
-    }
-
-    /* ── Corner decoration ── */
-    .corner-tl, .corner-br {
-      position: fixed;
-      width: 80px;
-      height: 80px;
-      z-index: 5;
-      pointer-events: none;
-      opacity: 0.25;
-    }
-    .corner-tl {
-      top: 24px; left: 24px;
-      border-top: 0.5px solid var(--blue);
-      border-left: 0.5px solid var(--blue);
-    }
-    .corner-br {
-      bottom: 24px; right: 24px;
-      border-bottom: 0.5px solid var(--blue);
-      border-right: 0.5px solid var(--blue);
-    }
-
-    /* ── Mobile ── */
     @media (max-width: 480px) {
       .links { flex-direction: column; }
       .btn { justify-content: center; }
+      .app-icon { width: 56px; height: 56px; }
     }
   </style>
 </head>
@@ -299,6 +185,7 @@
 
   <div class="grid-layer"></div>
   <div id="spotlight"></div>
+
   <div class="vignette"></div>
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
@@ -313,25 +200,20 @@
       </div>
 
       <div class="name-block">
-        <h1>
-          Rohit
-          <span class="last">Saini.</span>
-        </h1>
+        <h1>Rohit<span class="last">Saini.</span></h1>
       </div>
 
       <div class="rule"></div>
 
       <p class="bio">
-        <strong>CX & knowledge builder</strong> at Caraway Home by day —
-        <strong>tech content creator</strong> by night. I make videos about the
-        tech that shapes how we live and work.<br><br>
-        Business inquiries welcome at
-        <strong>me@rohitsaini.ca</strong>
+        <strong>Tech content creator</strong> obsessed with nostalgic Apple products — from vintage iPhones to the devices that defined a generation. I make videos for the people who remember when Apple felt different.<br><br>
+        Business inquiries → <strong>me@rohitsaini.ca</strong>
+        <span class="footnote">Professionally, I build knowledge & AI chat experiences at Caraway Home.</span>
       </p>
 
       <div class="links">
         <a class="btn btn-primary" href="https://www.youtube.com/iclassic" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" stroke="none" fill="currentColor"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0d0d1a" stroke="none"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" stroke="none" fill="currentColor"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#080810" stroke="none"/></svg>
           YouTube
         </a>
         <a class="btn btn-ghost" href="https://www.linkedin.com/in/rohit-saini2/" target="_blank" rel="noopener">
@@ -352,15 +234,11 @@
   </footer>
 
   <script>
+    // Spotlight
     const spotlight = document.getElementById('spotlight');
-    let mx = window.innerWidth / 2;
-    let my = window.innerHeight / 2;
-
     document.addEventListener('mousemove', e => {
-      mx = e.clientX;
-      my = e.clientY;
-      spotlight.style.left = mx + 'px';
-      spotlight.style.top = my + 'px';
+      spotlight.style.left = e.clientX + 'px';
+      spotlight.style.top  = e.clientY + 'px';
     });
   </script>
 
