@@ -53,9 +53,6 @@
       left: 50%; top: 50%;
     }
 
-
-
-    /* Corners & accents */
     .corner-tl, .corner-br {
       position: fixed; width: 80px; height: 80px;
       z-index: 5; pointer-events: none; opacity: 0.25;
@@ -69,7 +66,6 @@
       z-index: 20; opacity: 0.5;
     }
 
-    /* Layout */
     main {
       position: relative; z-index: 10;
       min-height: 100vh;
@@ -110,9 +106,20 @@
     h1 {
       font-family: 'Syne', sans-serif;
       font-size: clamp(52px, 10vw, 80px);
-      font-weight: 800; line-height: 0.95;
+      font-weight: 800; line-height: 1.0;
       letter-spacing: -0.03em; color: var(--text);
     }
+
+    /* "hi" is small and friendly, name is big and blue */
+    h1 .greeting {
+      display: block;
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.01em;
+      margin-bottom: 4px;
+    }
+
     h1 .last { color: var(--blue); display: block; }
 
     .rule {
@@ -177,7 +184,6 @@
     @media (max-width: 480px) {
       .links { flex-direction: column; }
       .btn { justify-content: center; }
-      .app-icon { width: 56px; height: 56px; }
     }
   </style>
 </head>
@@ -185,7 +191,6 @@
 
   <div class="grid-layer"></div>
   <div id="spotlight"></div>
-
   <div class="vignette"></div>
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
@@ -200,7 +205,10 @@
       </div>
 
       <div class="name-block">
-        <h1>Rohit<span class="last">Saini.</span></h1>
+        <h1>
+          <span class="greeting">hi, I'm</span>
+          <span class="last">Rohit Saini.</span>
+        </h1>
       </div>
 
       <div class="rule"></div>
@@ -208,7 +216,7 @@
       <p class="bio">
         <strong>Tech content creator</strong> obsessed with nostalgic Apple products — from vintage iPhones to the devices that defined a generation. I make videos for the people who remember when Apple felt different.<br><br>
         Business inquiries → <strong>me@rohitsaini.ca</strong>
-        <span class="footnote">Professionally, I build knowledge & AI chat experiences at Caraway Home.</span>
+        <span class="footnote">Professionally, I build knowledgebase & AI chat experiences @CarawayHome.</span>
       </p>
 
       <div class="links">
@@ -234,7 +242,6 @@
   </footer>
 
   <script>
-    // Spotlight
     const spotlight = document.getElementById('spotlight');
     document.addEventListener('mousemove', e => {
       spotlight.style.left = e.clientX + 'px';
